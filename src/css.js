@@ -8,6 +8,13 @@ export const sectionParent = css`
   align-items: center;
   justify-content: center;
   background-color: #f2f2f2;
+`;
+
+export const content = css`
+  margin: 64px;
+  width: 960px;
+  padding: 48px;
+  border: 2px solid #a9a9a9;
   h1 {
     color: #a9a9a9;
     font-family: 'Montserrat', sans-serif;
@@ -16,11 +23,6 @@ export const sectionParent = css`
     align-items: center;
     justify-content: center;
   }
-`;
-
-export const content = css`
-  margin: 64px;
-  width: 960px;
 `;
 
 export const table = css`

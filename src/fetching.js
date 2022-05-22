@@ -1,6 +1,3 @@
-//   const [usersList, setUsersList] = useState([]);
-// const [loading, setLoading] = useState(true);
-
 //   async function getRandomUsers() {
 //     const data = await fetch('https://randomuser.me/api/?results=3');
 

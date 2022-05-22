@@ -8,83 +8,108 @@ export default function GuestList() {
   const [lastName, setLastName] = useState('');
   const [guestList, setGuestList] = useState([]);
   const [attendance, setAttendance] = useState(false);
+  const baseUrl = 'http://localhost:4000/guests';
+  const [loading, setLoading] = useState(true);
+  const [stateUpdate, setStateUpdate] = useState(true);
 
-  const baseUrl = 'http://localhost:4000';
-
+  // Get Data
   useEffect(() => {
     async function getAllGuests() {
-      const response = await fetch(`${baseUrl}/guests`);
+      const response = await fetch(`${baseUrl}`);
       const allGuests = await response.json();
-
       setGuestList(allGuests);
       console.log(allGuests);
+      setLoading(false);
     }
     getAllGuests().catch(() => {
       console.log('fetch fails');
     });
-  }, []);
+  }, [stateUpdate]);
 
-  useEffect(() => {
-    async function postToTheDataBase() {
-      const response = await fetch(`${baseUrl}/guests`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ firstName: firstName, lastName: lastName }),
-      });
-      const createdGuest = await response.json();
-    }
+  // Post new data
+  async function postToTheDataBase() {
+    const response = await fetch(`${baseUrl}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ firstName: firstName, lastName: lastName }),
+    });
+    await response.json();
+    setStateUpdate(!stateUpdate);
+    setFirstName('');
+    setLastName('');
+  }
+
+  const handleSubmit = (event) => {
     postToTheDataBase().catch(() => {
       console.log('post fails');
     });
-  }, [firstName, lastName]);
+    event.preventDefault();
+  };
 
-  // const updatedList = [
-  //   ...guestList,
-  //   {
-  //     name: {
-  //       title: 'Mrs',
-  //       first: 'Ines',
-  //       last: 'Rodriguez',
-  //     },
-  //     gender: 'female',
-  //     email: 'ines.rodriguez@myemail.com',
-  //   },
-  // ];
-  // 3. set new state
-  //   setUsersList(updatedUsersList);
-  // }}
+  // Delete data
+  async function deleteGuest(id) {
+    const response = await fetch(`${baseUrl}/${id}`, {
+      method: 'DELETE',
+    });
+    await response.json();
+    setStateUpdate(!stateUpdate);
+  }
 
-  return (
+  //Update the attending status
+
+  async function updateAttendance(id) {
+    const response = await fetch(`${baseUrl}/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ attending: attendance }),
+    });
+    await response.json();
+    setStateUpdate(!stateUpdate);
+  }
+
+  return loading ? (
+    <h1>loading...</h1>
+  ) : (
     <div css={sectionParent}>
       <div css={content}>
         <h1>GUEST LIST</h1>
-        <form>
-          <label css={name}>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="first-name" css={name}>
             First name
             <input
               placeholder="First name"
               value={firstName}
-              onChange={(event) => {
-                setFirstName(event.target.value);
+              onChange={(e) => {
+                setFirstName(e.target.value);
               }}
             />
           </label>
-          <label css={name}>
+          <label type="text" name="first-name" css={name}>
             Last name
             <input
               placeholder="Last name"
               value={lastName}
-              onChange={(event) => {
-                setLastName(event.target.value);
+              onChange={(e) => {
+                setLastName(e.target.value);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  postToTheDataBase().catch(() => {
+                    console.log('post fails');
+                  });
+                }
               }}
             />
           </label>
         </form>
         {guestList.map((guest) => {
           return (
-            <div key={`${guest.firstName}-${guest.lastName}`} css={table}>
+            <div key={guest.id} css={table}>
               <hr />
               <div css={tableContent}>
                 <p>
@@ -93,14 +118,28 @@ export default function GuestList() {
                 <label>
                   <input
                     type="checkbox"
-                    checked={attendance}
+                    checked={guest.attendance}
                     onChange={(event) => {
                       setAttendance(event.currentTarget.checked);
+                      console.log(guest.attendance);
+                      updateAttendance(guest.id).catch(() => {
+                        console.log('update fails');
+                      });
+                      console.log(guest.attendance);
                     }}
                   />
                   {attendance ? 'attending' : 'not attending'}
                 </label>
-                <button>Remove</button>
+                <button
+                  onClick={() => {
+                    deleteGuest(guest.id).catch(() => {
+                      console.log('delete fails');
+                    });
+                  }}
+                >
+                  {' '}
+                  Remove
+                </button>
               </div>
               <hr />
             </div>
