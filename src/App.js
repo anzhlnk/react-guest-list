@@ -7,7 +7,6 @@ export default function GuestList() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [guestList, setGuestList] = useState([]);
-  const [attendance, setAttendance] = useState(false);
   const baseUrl = 'http://localhost:4000/guests';
   const [loading, setLoading] = useState(true);
   const [stateUpdate, setStateUpdate] = useState(true);
@@ -59,7 +58,7 @@ export default function GuestList() {
 
   //Update the attending status
 
-  async function updateAttendance(id) {
+  async function updateAttendance(id, attendance) {
     const response = await fetch(`${baseUrl}/${id}`, {
       method: 'PUT',
       headers: {
@@ -75,7 +74,7 @@ export default function GuestList() {
     <h1>loading...</h1>
   ) : (
     <div css={sectionParent}>
-      <div css={content}>
+      <div css={content} data-test-id="guest">
         <h1>GUEST LIST</h1>
         <form onSubmit={handleSubmit}>
           <label htmlFor="first-name" css={name}>
@@ -117,18 +116,17 @@ export default function GuestList() {
                 </p>
                 <label>
                   <input
+                    aria-label="attending"
                     type="checkbox"
-                    checked={guest.attendance}
-                    onChange={(event) => {
-                      setAttendance(event.currentTarget.checked);
-                      console.log(guest.attendance);
-                      updateAttendance(guest.id).catch(() => {
+                    checked={guest.attending}
+                    onChange={() => {
+                      updateAttendance(guest.id, !guest.attending).catch(() => {
                         console.log('update fails');
                       });
-                      console.log(guest.attendance);
+                      console.log(guest.attending);
                     }}
                   />
-                  {attendance ? 'attending' : 'not attending'}
+                  {guest.attending ? 'attending' : 'not attending'}
                 </label>
                 <button
                   onClick={() => {
