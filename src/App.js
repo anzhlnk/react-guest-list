@@ -72,7 +72,7 @@ export default function GuestList() {
 
   return (
     <div css={sectionParent}>
-      <h1> {loading ? `Loading...` : ''}</h1>
+      <div> {loading ? 'Loading...' : ''}</div>
       <div css={content}>
         <h1>GUEST LIST</h1>
         <form onSubmit={handleSubmit}>
