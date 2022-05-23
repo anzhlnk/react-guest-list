@@ -1,7 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import './App.css';
 import { useEffect, useState } from 'react';
-import { content, name, sectionParent, table, tableContent } from './css.js';
+import {
+  content,
+  loadingText,
+  name,
+  sectionParent,
+  table,
+  tableContent,
+} from './css.js';
 
 export default function GuestList() {
   const [firstName, setFirstName] = useState('');
@@ -70,17 +77,17 @@ export default function GuestList() {
     setStateUpdate(!stateUpdate);
   }
 
-  return loading ? (
-    <h1>loading...</h1>
-  ) : (
+  return (
     <div css={sectionParent}>
-      <div css={content} data-test-id="guest">
+      <h1 css={loadingText}> {loading && 'loading...'}</h1>
+      <div css={content}>
         <h1>GUEST LIST</h1>
         <form onSubmit={handleSubmit}>
           <label htmlFor="first-name" css={name}>
             First name
             <input
               placeholder="First name"
+              disabled={loading ? true : false}
               value={firstName}
               onChange={(e) => {
                 setFirstName(e.target.value);
@@ -91,6 +98,7 @@ export default function GuestList() {
             Last name
             <input
               placeholder="Last name"
+              disabled={loading ? true : false}
               value={lastName}
               onChange={(e) => {
                 setLastName(e.target.value);
@@ -108,7 +116,7 @@ export default function GuestList() {
         </form>
         {guestList.map((guest) => {
           return (
-            <div key={guest.id} css={table}>
+            <div key={guest.id} css={table} data-test-id="guest">
               <hr />
               <div css={tableContent}>
                 <p>

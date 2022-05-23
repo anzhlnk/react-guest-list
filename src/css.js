@@ -10,6 +10,12 @@ export const sectionParent = css`
   background-color: #f2f2f2;
 `;
 
+export const loadingText = css`
+  color: #ff3a3e;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 36px;
+`;
+
 export const content = css`
   margin: 64px;
   width: 960px;
