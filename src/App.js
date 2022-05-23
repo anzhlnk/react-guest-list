@@ -7,7 +7,7 @@ export default function GuestList() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [guestList, setGuestList] = useState([]);
-  const baseUrl = 'http://react-guest-list-anzh.herokuapp.com/guests';
+  const baseUrl = 'https://react-guest-list-anzh.herokuapp.com/guests';
   const [loading, setLoading] = useState(true);
   const [stateUpdate, setStateUpdate] = useState(true);
 
