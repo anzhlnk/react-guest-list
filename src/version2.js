@@ -53,12 +53,10 @@ export default function GuestList() {
       method: 'DELETE',
     });
     await response.json();
-    setGuestList(guestList.filter((x) => x !== id));
     setStateUpdate(!stateUpdate);
   }
 
   // Update the attending status
-
   async function updateAttendance(id, attendance) {
     const response = await fetch(`${baseUrl}/${id}`, {
       method: 'PUT',
@@ -68,8 +66,6 @@ export default function GuestList() {
       body: JSON.stringify({ attending: attendance }),
     });
     await response.json();
-    const indexOfTheGuest = guestList.findIndex((x) => x.id === id);
-    guestList[indexOfTheGuest].attending = attendance;
     setStateUpdate(!stateUpdate);
   }
 
