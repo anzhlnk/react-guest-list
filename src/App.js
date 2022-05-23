@@ -41,10 +41,10 @@ export default function GuestList() {
   }
 
   const handleSubmit = (event) => {
+    event.preventDefault();
     postToTheDataBase().catch(() => {
       console.log('post fails');
     });
-    event.preventDefault();
   };
 
   // Delete data
@@ -75,7 +75,6 @@ export default function GuestList() {
       <div css={content}>
         <h1>GUEST LIST</h1>
         <form onSubmit={handleSubmit}>
-          <div> {loading ? 'Loading...' : ''}</div>
           <label name="first-name" css={name}>
             First name
             <input
@@ -106,6 +105,7 @@ export default function GuestList() {
               }}
             />
           </label>
+          <div> {loading ? 'Loading...' : ''}</div>
         </form>
         {guestList.map((guest) => {
           return (
