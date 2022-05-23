@@ -21,7 +21,7 @@ export default function GuestList() {
   // Get Data
   useEffect(() => {
     async function getAllGuests() {
-      const response = await fetch(`${baseUrl}`);
+      const response = await fetch(baseUrl);
       const allGuests = await response.json();
       setGuestList(allGuests);
       console.log(allGuests);
@@ -34,7 +34,7 @@ export default function GuestList() {
 
   // Post new data
   async function postToTheDataBase() {
-    const response = await fetch(`${baseUrl}`, {
+    const response = await fetch(baseUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ export default function GuestList() {
     setStateUpdate(!stateUpdate);
   }
 
-  //Update the attending status
+  // Update the attending status
 
   async function updateAttendance(id, attendance) {
     const response = await fetch(`${baseUrl}/${id}`, {
