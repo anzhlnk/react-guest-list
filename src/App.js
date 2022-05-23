@@ -131,6 +131,7 @@ export default function GuestList() {
                   {guest.attending ? 'attending' : 'not attending'}
                 </label>
                 <button
+                  aria-label="Remove"
                   onClick={() => {
                     deleteGuest(guest.id).catch(() => {
                       console.log('delete fails');
