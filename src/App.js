@@ -71,80 +71,84 @@ export default function GuestList() {
   }
 
   return (
-    <div css={sectionParent}>
+    <>
       <div> {loading ? 'Loading...' : ''}</div>
-      <div css={content}>
-        <h1>GUEST LIST</h1>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="first-name" css={name}>
-            First name
-            <input
-              placeholder="First name"
-              disabled={loading ? true : false}
-              value={firstName}
-              onChange={(e) => {
-                setFirstName(e.target.value);
-              }}
-            />
-          </label>
-          <label type="text" name="first-name" css={name}>
-            Last name
-            <input
-              placeholder="Last name"
-              disabled={loading ? true : false}
-              value={lastName}
-              onChange={(e) => {
-                setLastName(e.target.value);
-              }}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  e.preventDefault();
-                  postToTheDataBase().catch(() => {
-                    console.log('post fails');
-                  });
-                }
-              }}
-            />
-          </label>
-        </form>
-        {guestList.map((guest) => {
-          return (
-            <div key={guest.id} css={table} data-test-id="guest">
-              <hr />
-              <div css={tableContent}>
-                <p>
-                  Name: {guest.firstName} {guest.lastName}
-                </p>
-                <label>
-                  <input
-                    aria-label="attending"
-                    type="checkbox"
-                    checked={guest.attending}
-                    onChange={() => {
-                      updateAttendance(guest.id, !guest.attending).catch(() => {
-                        console.log('update fails');
-                      });
-                      console.log(guest.attending);
-                    }}
-                  />
-                  {guest.attending ? 'attending' : 'not attending'}
-                </label>
-                <button
-                  onClick={() => {
-                    deleteGuest(guest.id).catch(() => {
-                      console.log('delete fails');
+      <div css={sectionParent}>
+        <div css={content}>
+          <h1>GUEST LIST</h1>
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="first-name" css={name}>
+              First name
+              <input
+                placeholder="First name"
+                disabled={loading ? true : false}
+                value={firstName}
+                onChange={(e) => {
+                  setFirstName(e.target.value);
+                }}
+              />
+            </label>
+            <label type="text" name="first-name" css={name}>
+              Last name
+              <input
+                placeholder="Last name"
+                disabled={loading ? true : false}
+                value={lastName}
+                onChange={(e) => {
+                  setLastName(e.target.value);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    postToTheDataBase().catch(() => {
+                      console.log('post fails');
                     });
-                  }}
-                >
-                  {' '}
-                  Remove
-                </button>
+                  }
+                }}
+              />
+            </label>
+          </form>
+          {guestList.map((guest) => {
+            return (
+              <div key={guest.id} css={table} data-test-id="guest">
+                <hr />
+                <div css={tableContent}>
+                  <p>
+                    Name: {guest.firstName} {guest.lastName}
+                  </p>
+                  <label>
+                    <input
+                      aria-label="attending"
+                      type="checkbox"
+                      checked={guest.attending}
+                      onChange={() => {
+                        updateAttendance(guest.id, !guest.attending).catch(
+                          () => {
+                            console.log('update fails');
+                          },
+                        );
+                        console.log(guest.attending);
+                      }}
+                    />
+                    {guest.attending ? 'attending' : 'not attending'}
+                  </label>
+                  <button
+                    onClick={() => {
+                      deleteGuest(guest.id).catch(() => {
+                        console.log('delete fails');
+                      });
+                    }}
+                  >
+                    {' '}
+                    Remove
+                  </button>
+                </div>
+                <hr />
               </div>
-              <hr />
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

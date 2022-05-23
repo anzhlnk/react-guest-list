@@ -2,7 +2,6 @@
 import { css } from '@emotion/react';
 
 export const sectionParent = css`
-  background-color: #f1ece0;
   display: flex;
   flex-direction: column;
   align-items: center;
