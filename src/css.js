@@ -11,7 +11,6 @@ export const sectionParent = css`
 
 export const content = css`
   margin: 64px;
-  width: 960px;
   padding: 48px;
   border: 2px solid #a9a9a9;
   h1 {

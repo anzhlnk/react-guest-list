@@ -73,7 +73,9 @@ export default function GuestList() {
   return (
     <div css={sectionParent}>
       <div css={content}>
-        <h1>GUEST LIST</h1>
+        <h1>
+          GUEST LIST <span>{loading ? 'Loading...' : ''}</span>
+        </h1>
         <form onSubmit={handleSubmit}>
           <label name="first-name" css={name}>
             First name
@@ -105,7 +107,6 @@ export default function GuestList() {
               }}
             />
           </label>
-          <div> {loading ? 'Loading...' : ''}</div>
         </form>
         {guestList.map((guest) => {
           return (
