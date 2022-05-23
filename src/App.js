@@ -16,9 +16,9 @@ export default function GuestList() {
     async function getAllGuests() {
       const response = await fetch(baseUrl);
       const allGuests = await response.json();
+      setLoading(false);
       setGuestList(allGuests);
       console.log(allGuests);
-      setLoading(false);
     }
     getAllGuests().catch(() => {
       console.log('fetch fails');
