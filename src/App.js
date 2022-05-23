@@ -1,14 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import './App.css';
 import { useEffect, useState } from 'react';
-import {
-  content,
-  loadingText,
-  name,
-  sectionParent,
-  table,
-  tableContent,
-} from './css.js';
+import { content, name, sectionParent, table, tableContent } from './css.js';
 
 export default function GuestList() {
   const [firstName, setFirstName] = useState('');
