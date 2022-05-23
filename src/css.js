@@ -13,13 +13,21 @@ export const content = css`
   margin: 64px;
   padding: 48px;
   border: 2px solid #a9a9a9;
+  width: 960px;
+  header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
   h1 {
     color: #a9a9a9;
     font-family: 'Montserrat', sans-serif;
     font-size: 48px;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  }
+  span {
+    color: #ff3a3e;
+    font-size: 24px;
   }
 `;
 
