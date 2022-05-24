@@ -34,8 +34,8 @@ export default function GuestList() {
       },
       body: JSON.stringify({ firstName: firstName, lastName: lastName }),
     });
-    await response.json();
-    setStateUpdate(!stateUpdate);
+    const newGuest = await response.json();
+    guestList.push(newGuest);
     setFirstName('');
     setLastName('');
   }
@@ -43,7 +43,7 @@ export default function GuestList() {
   const handleSubmit = (event) => {
     event.preventDefault();
     postToTheDataBase().catch(() => {
-      console.log('post fails');
+      console.log('submit fails');
     });
   };
 
@@ -57,7 +57,6 @@ export default function GuestList() {
   }
 
   // Update the attending status
-
   async function updateAttendance(id, attendance) {
     const response = await fetch(`${baseUrl}/${id}`, {
       method: 'PUT',

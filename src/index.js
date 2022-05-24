@@ -1,8 +1,8 @@
 import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import GuestList from './App';
 import reportWebVitals from './reportWebVitals';
-import GuestList from './version2';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
