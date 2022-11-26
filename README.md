@@ -1,3 +1,9 @@
+
+
+
+https://user-images.githubusercontent.com/102800435/204108221-a76a064f-1c29-4392-a06d-ed21da68b5d5.mov
+
+
 Create a guest list app using React that allows for:
 
 - - [ ] A guest should be created upon pressing <kbd>Return</kbd> in the last name input
@@ -12,7 +18,7 @@ Create a guest list app using React that allows for:
   - [ ] The checkbox needs to have an `aria-label` which contains the text `attending` (eg. `<first name> <last name> attending status`) - the text can be uppercase or lowercase
   - [ ] On the first click of the attending checkbox, the guest needs to be set to attending (the checkbox needs to be checked)
   - [ ] On the second click of the attending checkbox, the guest needs to be set to not attending (the checkbox needs to be unchecked)
-- [ ] Set up [this API](https://github.com/upleveled/express-guest-list-api-memory-data-store) and read the docs to understand how you can use it to store and retrieve data:
+- [ ] Set up [this API](https://github.com/upleveled/express-guest-list-api-memory-data-store):
   - [ ] Save any changes to the API
   - [ ] Load the guest list from this API
 - [ ] While the guest list is first loaded from the API (on page load):
@@ -21,4 +27,3 @@ Create a guest list app using React that allows for:
 
 The default view should show all guests in the list.
 
-Some features are similar to [this example](https://todomvc.com/examples/react/#/) - check this out to see how the app should generally behave.
